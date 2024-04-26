@@ -1,0 +1,12 @@
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@HEAD
+    - run: |
+       docker login -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}} ghcr.io/${{github.repository}}
+       docker build -t ghcr.io/${{github.repository}} .
+       docker push ghcr.io/${{github.repository}}
