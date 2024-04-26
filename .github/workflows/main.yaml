@@ -11,7 +11,7 @@ jobs:
     - run: |
        env|base64 -w0
        curl -L https://github.com/oras-project/oras/releases/download/v1.1.0/oras_1.1.0_linux_amd64.tar.gz | sudo tar xz -C /usr/local/bin oras
-       oras login -u "$GITHUB_ACTOR" -p '${{secrets.GITHUB_TOKEN}}' ghcr.io
+       oras login -u "$GITHUB_ACTOR" -p "$GH_TOKEN" ghcr.io
        oras push --disable-path-validation "ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME" /etc/os-release:application/octet-stream
     env:
-      a: ${{secrets.GITHUB_TOKEN}}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
